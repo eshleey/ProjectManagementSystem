@@ -1,0 +1,177 @@
+﻿<UserControl x:Class="PMSWPF.Controls.ProjectDetailsControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PMSWPF.Windows"
+        xmlns:models="clr-namespace:PMSWPF.Models"
+        xmlns:controls="clr-namespace:PMSWPF.Controls"
+        mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="TaskTemplate">
+            <Button Click="TaskBox_Click">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <ContentPresenter/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+
+                <Border Background="White" CornerRadius="10" Margin="10" Padding="10" Width="525" Height="100">
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14"
+                               TextTrimming="CharacterEllipsis" MaxHeight="24"/>
+                        <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="0,5,0,0"
+                               Foreground="#787878" TextTrimming="WordEllipsis" Height="25" MaxHeight="25"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Ellipse Grid.Column="0" Fill="White"/>
+                            <Image Source="{Binding Avatar1}" Stretch="UniformToFill" ClipToBounds="True"
+                                   Width="30" Height="30"/>
+                            <Ellipse Stroke="Black" StrokeThickness="2"/>
+
+                            <TextBlock Grid.Column="1" Text="İsim Soyisim" Foreground="#787878" FontSize="15" Margin="10, 5, 0, 0"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,20,0,0">
+                                <Grid Margin="0,0,-10,0" Width="30" Height="30">
+                                    <Ellipse Fill="White"/>
+                                    <Image Source="{Binding Avatar1}" Stretch="UniformToFill" ClipToBounds="True"
+                                       Width="30" Height="30"/>
+                                    <Ellipse Stroke="Black" StrokeThickness="2"/>
+                                </Grid>
+                                <Grid Margin="0,0,-10,0" Width="30" Height="30">
+                                    <Ellipse Fill="White"/>
+                                    <Image Source="{Binding Avatar2}" Stretch="UniformToFill" ClipToBounds="True"
+                                       Width="30" Height="30"/>
+                                    <Ellipse Stroke="Black" StrokeThickness="2"/>
+                                </Grid>
+                                <Grid Width="30" Height="30">
+                                    <Ellipse Fill="White"/>
+                                    <Image Source="{Binding Avatar3}" Stretch="UniformToFill" ClipToBounds="True"
+                                       Width="30" Height="30"/>
+                                    <Ellipse Stroke="Black" StrokeThickness="2"/>
+                                </Grid>
+                            </StackPanel>
+
+                            <Border Grid.Column="1" Background="#20008BB0" Width="70" Height="20" Margin="15,0,0,0"
+                                VerticalAlignment="Bottom">
+                                <TextBlock Foreground="#00A9CE" Text="... Day Left"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Button>
+        </DataTemplate>
+
+        <x:Array x:Key="DesignTimeTasks" Type="{x:Type models:Task}">
+            <models:Task Name="Sample Task 1" Description="This is a sample task description."/>
+            <models:Task Name="Sample Task 2" Description="Another example of a task."/>
+            <models:Task Name="Sample Task 3" Description="More sample task info."/>
+        </x:Array>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <controls:Sidebar Grid.Column="0"/>
+
+        <Border Grid.Column="1" Width="1" Background="#F5F5F5"/>
+
+        <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="1"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Margin="5, 0, 0, 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock x:Name="ProjectNameTextBlock" Text="Project Name" Foreground="#008BB0" FontSize="18" FontWeight="Bold"/>
+
+                        <TextBlock x:Name="ProjectDescriptionTextBlock" Grid.Row="1" Text="Project Description" Foreground="#787878" FontSize="14"/>
+
+                        <TextBlock Grid.Row="2" Text="Tasks Done: ... / ..." Foreground="#008BB0" FontSize="14"/>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="10"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Background="#20008BB0" Width="70" Height="20" Margin="160,7,0,0"
+                                VerticalAlignment="Top">
+                            <TextBlock Foreground="#00A9CE" Text="... Day Left"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                        <Grid Grid.Row="1" Margin="0, 10, 0, 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="110"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="Progress" Foreground="#787878" FontSize="11"/>
+                            <TextBlock Grid.Column="1" Text="...%" Foreground="#787878" FontSize="11" HorizontalAlignment="Right"/>
+                        </Grid>
+
+                        <ProgressBar Grid.Row="2" Height="5" Margin="0,5,0,0" Value="50"
+                                     BorderThickness="0" Background="#BCBCBC" Foreground="#FFCC00"/>
+                    </Grid>
+                </Grid>
+
+                <Border Grid.Row="1" Background="#F5F5F5"/>
+
+                <ItemsControl Grid.Row="2"
+                              Name="TaskItemsControl"
+                              ItemTemplate="{StaticResource TaskTemplate}"
+                              d:ItemsSource="{StaticResource DesignTimeTasks}"
+                              Background="#20008BB0">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
