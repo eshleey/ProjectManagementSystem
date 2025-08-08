@@ -16,162 +16,191 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="Button">
-                                    <ContentPresenter/>
+                                    <Border x:Name="CardBorder" Background="White" CornerRadius="10" Margin="10" Padding="10" Height="100"  HorizontalAlignment="Stretch"
+                                            RenderOptions.BitmapScalingMode="HighQuality" SnapsToDevicePixels="True" UseLayoutRounding="True" RenderTransformOrigin="0.5,0.5">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14"
+                                                        TextTrimming="CharacterEllipsis" MaxHeight="24"/>
+                                            <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="0,5,0,0"
+                                                        Foreground="#787878" TextTrimming="WordEllipsis" Height="25" MaxHeight="25"/>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Ellipse Grid.Column="0" Fill="White"/>
+                                                <Image Source="{Binding Avatar1}" Stretch="UniformToFill" ClipToBounds="True"
+                                                       Width="30" Height="30"/>
+                                                <Ellipse Stroke="Black" StrokeThickness="2"/>
+
+                                                <TextBlock Grid.Column="1" Text="İsim Soyisim" Foreground="#787878" FontSize="15" Margin="10, 5, 0, 0"/>
+                                            </Grid>
+
+                                            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,20,0,0">
+                                                <Grid Margin="0,0,-10,0" Width="30" Height="30">
+                                                    <Ellipse Fill="White"/>
+                                                    <Image Source="{Binding Avatar1}" Stretch="UniformToFill" ClipToBounds="True"
+                                                           Width="30" Height="30"/>
+                                                    <Ellipse Stroke="Black" StrokeThickness="2"/>
+                                                </Grid>
+                                                <Grid Margin="0,0,-10,0" Width="30" Height="30">
+                                                    <Ellipse Fill="White"/>
+                                                    <Image Source="{Binding Avatar2}" Stretch="UniformToFill" ClipToBounds="True"
+                                                           Width="30" Height="30"/>
+                                                    <Ellipse Stroke="Black" StrokeThickness="2"/>
+                                                </Grid>
+                                                <Grid Width="30" Height="30">
+                                                    <Ellipse Fill="White"/>
+                                                    <Image Source="{Binding Avatar3}" Stretch="UniformToFill" ClipToBounds="True"
+                                                           Width="30" Height="30"/>
+                                                    <Ellipse Stroke="Black" StrokeThickness="2"/>
+                                                </Grid>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="CardBorder" Property="RenderTransform">
+                                                <Setter.Value>
+                                                    <ScaleTransform ScaleX="1.01" ScaleY="1.01"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter TargetName="CardBorder" Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect Color="Black"
+                                                                      BlurRadius="8"
+                                                                      Opacity="0.2"
+                                                                      ShadowDepth="2"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
                     </Style>
                 </Button.Style>
-
-                <Border Background="White" CornerRadius="10" Margin="10" Padding="10" Width="525" Height="100">
-                    <StackPanel>
-                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14"
-                               TextTrimming="CharacterEllipsis" MaxHeight="24"/>
-                        <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="0,5,0,0"
-                               Foreground="#787878" TextTrimming="WordEllipsis" Height="25" MaxHeight="25"/>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-
-                            <Ellipse Grid.Column="0" Fill="White"/>
-                            <Image Source="{Binding Avatar1}" Stretch="UniformToFill" ClipToBounds="True"
-                                   Width="30" Height="30"/>
-                            <Ellipse Stroke="Black" StrokeThickness="2"/>
-
-                            <TextBlock Grid.Column="1" Text="İsim Soyisim" Foreground="#787878" FontSize="15" Margin="10, 5, 0, 0"/>
-                        </Grid>
-
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,20,0,0">
-                                <Grid Margin="0,0,-10,0" Width="30" Height="30">
-                                    <Ellipse Fill="White"/>
-                                    <Image Source="{Binding Avatar1}" Stretch="UniformToFill" ClipToBounds="True"
-                                       Width="30" Height="30"/>
-                                    <Ellipse Stroke="Black" StrokeThickness="2"/>
-                                </Grid>
-                                <Grid Margin="0,0,-10,0" Width="30" Height="30">
-                                    <Ellipse Fill="White"/>
-                                    <Image Source="{Binding Avatar2}" Stretch="UniformToFill" ClipToBounds="True"
-                                       Width="30" Height="30"/>
-                                    <Ellipse Stroke="Black" StrokeThickness="2"/>
-                                </Grid>
-                                <Grid Width="30" Height="30">
-                                    <Ellipse Fill="White"/>
-                                    <Image Source="{Binding Avatar3}" Stretch="UniformToFill" ClipToBounds="True"
-                                       Width="30" Height="30"/>
-                                    <Ellipse Stroke="Black" StrokeThickness="2"/>
-                                </Grid>
-                            </StackPanel>
-
-                            <Border Grid.Column="1" Background="#20008BB0" Width="70" Height="20" Margin="15,0,0,0"
-                                VerticalAlignment="Bottom">
-                                <TextBlock Foreground="#00A9CE" Text="... Day Left"
-                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                        </Grid>
-                    </StackPanel>
-                </Border>
             </Button>
         </DataTemplate>
 
-        <x:Array x:Key="DesignTimeTasks" Type="{x:Type models:Task}">
-            <models:Task Name="Sample Task 1" Description="This is a sample task description."/>
-            <models:Task Name="Sample Task 2" Description="Another example of a task."/>
-            <models:Task Name="Sample Task 3" Description="More sample task info."/>
+        <x:Array x:Key="DesignTimeTasks" Type="{x:Type models:TaskModel}">
+            <models:TaskModel Name="Sample Task 1" Description="This is a sample task description."/>
+            <models:TaskModel Name="Sample Task 2" Description="Another example of a task."/>
+            <models:TaskModel Name="Sample Task 3" Description="More sample task info."/>
         </x:Array>
     </UserControl.Resources>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <ScrollViewer Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <controls:Sidebar Grid.Column="0"/>
-
-        <Border Grid.Column="1" Width="1" Background="#F5F5F5"/>
-
-        <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="70"/>
-                    <RowDefinition Height="1"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="300"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+                <Button Width="40" Height="40"
+        BorderBrush="Transparent"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Click="BackButton_Click"
+        Cursor="Hand"
+        Padding="0"
+        ToolTip="Back">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#008BB0" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Grid>
+                                            <Ellipse Fill="{TemplateBinding Background}"/>
+                                            <Path Data="M 25,10 L 15,20 L 25,30"
+                                  Stroke="White"
+                                  StrokeThickness="3"
+                                  StrokeEndLineCap="Round"
+                                  StrokeStartLineCap="Round"
+                                  StrokeLineJoin="Round" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FFCC00" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
 
-                    <Grid Margin="5, 0, 0, 0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25"/>
-                            <RowDefinition Height="20"/>
-                            <RowDefinition Height="20"/>
-                        </Grid.RowDefinitions>
+                <Grid Grid.Column="1" Margin="0, 0, 0, 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                        <TextBlock x:Name="ProjectNameTextBlock" Text="Project Name" Foreground="#008BB0" FontSize="18" FontWeight="Bold"/>
+                    <TextBlock x:Name="ProjectNameTextBlock" Text="Project Name" Foreground="#008BB0" FontSize="18" FontWeight="Bold"/>
 
-                        <TextBlock x:Name="ProjectDescriptionTextBlock" Grid.Row="1" Text="Project Description" Foreground="#787878" FontSize="14"/>
+                    <TextBlock x:Name="ProjectDescriptionTextBlock" Grid.Row="1" Text="Project Description" Foreground="#787878" FontSize="14" Margin="0, 5, 0, 0"/>
 
-                        <TextBlock Grid.Row="2" Text="Tasks Done: ... / ..." Foreground="#008BB0" FontSize="14"/>
-                    </Grid>
-
-                    <Grid Grid.Column="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition Height="25"/>
-                            <RowDefinition Height="10"/>
-                        </Grid.RowDefinitions>
-
-                        <Border Background="#20008BB0" Width="70" Height="20" Margin="160,7,0,0"
-                                VerticalAlignment="Top">
-                            <TextBlock Foreground="#00A9CE" Text="... Day Left"
-                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-
-                        <Grid Grid.Row="1" Margin="0, 10, 0, 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="120"/>
-                                <ColumnDefinition Width="110"/>
-                            </Grid.ColumnDefinitions>
-
-                            <TextBlock Text="Progress" Foreground="#787878" FontSize="11"/>
-                            <TextBlock Grid.Column="1" Text="...%" Foreground="#787878" FontSize="11" HorizontalAlignment="Right"/>
-                        </Grid>
-
-                        <ProgressBar Grid.Row="2" Height="5" Margin="0,5,0,0" Value="50"
-                                     BorderThickness="0" Background="#BCBCBC" Foreground="#FFCC00"/>
-                    </Grid>
+                    <TextBlock Grid.Row="2" Text="Tasks Done: ... / ..." Foreground="#787878" FontSize="14"/>
                 </Grid>
 
-                <Border Grid.Row="1" Background="#F5F5F5"/>
+                <Grid Grid.Column="2" HorizontalAlignment="Right">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <ItemsControl Grid.Row="2"
-                              Name="TaskItemsControl"
-                              ItemTemplate="{StaticResource TaskTemplate}"
-                              d:ItemsSource="{StaticResource DesignTimeTasks}"
-                              Background="#20008BB0">
+                    <Border VerticalAlignment="Top" Width="80" Height="25" Margin="200, 10, 10, -20"
+                                Background="#20008BB0" CornerRadius="10">
+                        <TextBlock Foreground="#00A9CE" Text="... Day Left" FontSize="15"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+
+                    <Grid Grid.Row="1" Margin="0, 10, 10, -10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Progress" Foreground="#787878" FontSize="15"/>
+                        <TextBlock Grid.Column="1" Text="...%" Foreground="#787878" FontSize="15" HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <ProgressBar Grid.Row="2" Height="10" Margin="0, 5, 10, 0" Value="50"
+                                     BorderThickness="0" Background="#BCBCBC" Foreground="#FFCC00"/>
+                </Grid>
+            </Grid>
+
+            <Border Grid.Row="1" Background="#F5F5F5"/>
+
+            <Border Grid.Row="2" Background="#20008BB0" HorizontalAlignment="Stretch">
+                <ItemsControl Name="TaskItemsControl"
+                  ItemTemplate="{StaticResource TaskTemplate}"
+                  d:ItemsSource="{StaticResource DesignTimeTasks}"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Top">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel/>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-            </Grid>
-        </ScrollViewer>
-    </Grid>
+            </Border>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

@@ -1,37 +1,15 @@
-﻿using Newtonsoft.Json;
-using PMSWPF.Controls;
+﻿using PMSWPF.Controls;
 using PMSWPF.Models;
-using System.Collections.ObjectModel;
-using System.Net.Http;
 using System.Windows;
 
 namespace PMSWPF.Windows
 {
     public partial class MainWindow : Window
     {
-        private ObservableCollection<Project> projects = new ObservableCollection<Project>();
-        private readonly string apiUrl = "http://localhost:5160/api/projects";
-
         public MainWindow()
         {
             InitializeComponent();
-            LoadProjectsFromApi();
-        }
-
-        private void ProjectBox_Click(object sender, RoutedEventArgs e)
-        {
-            var button = sender as FrameworkElement;
-
-            if (button != null)
-            {
-                var project = button.DataContext as Project;
-
-                if (project != null)
-                {
-                    var detailsControl = new ProjectDetailsControl(project);
-                    MainContent.Content = detailsControl;
-                }
-            } 
+            ShowProjectList();
         }
 
         private void SidebarButton_Click(object sender, RoutedEventArgs e)
@@ -39,58 +17,23 @@ namespace PMSWPF.Windows
             // Sol taraftaki sütundan bir özelliğe tıklandığında, sağ taraftaki sütunda; tıklanan özelliğin sayfası açılacak.
         }
 
-        private async void LoadProjectsFromApi()
+        private void ShowProjectList()
         {
-            projects.Clear();
-
-            var fetchedProjects = await GetProjectsAsync();
-
-            foreach (var project in fetchedProjects)
-            {
-                projects.Add(project);
-            }
-
-            projects.Add(new Project());
-
-            ProjectItemsControl.ItemsSource = projects;
+            var projectListControl = new ProjectListControl();
+            projectListControl.ProjectSelected += ProjectListControl_ProjectSelected;
+            MainContentControl.Content = projectListControl;
         }
 
-        public async Task<List<Project>> GetProjectsAsync()
+        private void ProjectListControl_ProjectSelected(object sender, ProjectModel selectedProject)
         {
-            using (HttpClient client = new HttpClient())
-            {
-                try
-                {
-                    var response = await client.GetAsync(apiUrl);
+            var detailsControl = new ProjectDetailsControl(selectedProject);
+            detailsControl.BackToListRequested += DetailsControl_BackToListRequested;
+            MainContentControl.Content = detailsControl;
+        }
 
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        MessageBox.Show($"API request failed. Status code: {response.StatusCode}");
-                        return new List<Project>();
-                    }
-
-                    var jsonString = await response.Content.ReadAsStringAsync();
-                    var projectList = JsonConvert.DeserializeObject<List<Project>>(jsonString);
-
-                    if (projectList ==  null)
-                    {
-                        MessageBox.Show("The data returned from the server could not be processed.");
-                        return new List<Project>();
-                    }
-
-                    return projectList;
-                }
-                catch (HttpRequestException httpEx)
-                {
-                    MessageBox.Show($"HTTP Error: {httpEx.Message}");
-                    return new List<Project>();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Unexpected Error: {ex.Message}");
-                    return new List<Project>();
-                }
-            }
+        private void DetailsControl_BackToListRequested(object sender, EventArgs e)
+        {
+            ShowProjectList();
         }
     }
 }

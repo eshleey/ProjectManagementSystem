@@ -22,8 +22,20 @@ namespace PMSAPI.Controllers
             return Ok(await _context.Projects.ToListAsync());
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProjectById(int id)
+        {
+            var project = await _context.Projects.FindAsync(id);
+            if (project == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(project);
+        }
+
         [HttpPost]
-        public async Task<IActionResult> AddProject([FromBody] Project project)
+        public async Task<IActionResult> AddProject([FromBody] ProjectModel project)
         {
             if (project == null)
                 return BadRequest();
@@ -35,7 +47,7 @@ namespace PMSAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProject(int id, Project updatedProject)
+        public async Task<IActionResult> UpdateProject(int id, ProjectModel updatedProject)
         {
             if (id != updatedProject.Id)
                 return BadRequest();
